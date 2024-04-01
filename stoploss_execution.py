@@ -65,6 +65,7 @@ def universal_exit():
     column_name = 'productType'
     df = pd.DataFrame(positions['netPositions'])
     condition = df[column_name] == pos_type
+    count=1
 
 
 
