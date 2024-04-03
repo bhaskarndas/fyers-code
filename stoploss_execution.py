@@ -71,11 +71,29 @@ def universal_exit():
 
     while count!=0:
         dt = datetime.now()
+        # Fetch user Funds
+        fund=fyers.funds()
 
+        # Initial Capital
+        total_amount = fund['fund_limit'][0]['equityAmount']
+        print(f"Initial Capital is Rs. {total_amount}")
+
+        #Utilized Capital
+        deployed_capital=fund['fund_limit'][1]['equityAmount']
+        print(f"Deployed Capital is Rs. {deployed_capital}")
+
+        # fetch count of open positions
+        positions = fyers.positions()
+        pos_count = positions['overall']['count_open']
+
+        #create pandas dataframe for product type 'MIS',NRML or MARGIN(incase of Fyers)
+        column_name = 'productType'
+        df = pd.DataFrame(positions['netPositions'])
+        condition = df[column_name] == pos_type
         #fetch unrealized pnl
         unrealized_pnl=positions['overall']['pl_unrealized']
         # Count the number of rows satisfying the condition condition MIS or NRML
-        count = df[condition].shape[0] - 1
+        count = df[condition].shape[0]
         print(f"Total no. of open positions is {pos_count} and {pos_type} positions is {count}")
 
         if  unrealized_pnl<=(-total_amount*sl*.01):
