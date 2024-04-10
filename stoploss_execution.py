@@ -67,7 +67,7 @@ def universal_exit():
 
         if unrealized_pnl<=(-total_amount*sl*.01):
             print(f"SL hit, exiting all positions. Unrealized PNL :  {unrealized_pnl}")
-            #fyers.exit_positions()
+            fyers.exit_positions()
             print("exited all positions")
             sys.exit()
 
